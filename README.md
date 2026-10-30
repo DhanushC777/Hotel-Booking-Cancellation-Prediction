@@ -2,9 +2,9 @@
 
 ## 📌 About the Project
 
-Hotel Booking Cancellation Prediction and Analysis is a Data Science and Machine Learning project developed using Python. The project focuses on analysing hotel reservation data, identifying the major factors influencing booking cancellations, and predicting whether a hotel booking will be canceled or not.
+Hotel Booking Cancellation Prediction and Analysis is a Data Science and Machine Learning project developed using Python. The project focuses on analysing hotel reservation data, identifying patterns associated with booking cancellations, and predicting whether a hotel booking will be canceled or not.
 
-By applying data preprocessing, Exploratory Data Analysis (EDA), data visualization, feature engineering, and Machine Learning classification algorithms, this project aims to discover meaningful patterns in hotel booking behaviour.
+By applying data preprocessing, Exploratory Data Analysis (EDA), data visualization, feature engineering, and Machine Learning classification algorithms, this project aims to discover meaningful insights into hotel booking behaviour and cancellation trends.
 
 ## 🎯 Project Objectives
 
@@ -13,30 +13,28 @@ The main objectives of this project are:
 1. To analyse the distribution of canceled and non-canceled hotel bookings.
 2. To investigate the relationship between lead time and booking cancellations.
 3. To identify cancellation patterns across different market segments.
-4. To examine the relationship between room types, average prices, and booking cancellations.
-5. To analyse how special requests and repeat customers influence booking status.
+4. To examine the relationship between average booking prices and cancellation status.
+5. To analyse how special requests influence hotel booking cancellations.
 
 ## 📂 Dataset Description
 
 - **Dataset Name:** Hotel Booking Cancellation Dataset
 - **File Name:** `hotel_booking_cancellation.csv`
-- **Total Records:** 36,285
-- **Total Attributes:** 17
-- **Target Variable:** `booking status`
+- **Target Variable:** `booking_status`
 - **Problem Type:** Binary Classification
 
 The dataset contains hotel reservation details such as:
 
-- 👥 Number of adults and children
-- 🌙 Weekend and weekday nights
-- 🍽️ Type of meal
-- 🛏️ Room type
-- ⏳ Lead time
-- 🏢 Market segment type
-- 💰 Average price
-- ⭐ Special requests
-- 📅 Date of reservation
-- 📊 Booking status
+- Number of adults and children
+- Number of weekend and weekday nights
+- Car parking requirements
+- Lead time
+- Repeated customer information
+- Market segment type
+- Average booking price
+- Special requests
+- Date of reservation
+- Booking status
 
 ## 🛠️ Technologies and Libraries
 
@@ -44,77 +42,90 @@ The dataset contains hotel reservation details such as:
 |---|---|
 | Python | Programming language |
 | Pandas | Data manipulation and analysis |
-| NumPy | Numerical operations |
 | Matplotlib | Data visualization |
-| Seaborn | Statistical visualization |
-| Scikit-learn | Machine Learning |
+| Seaborn | Statistical data visualization |
+| Scikit-learn | Machine Learning algorithms |
 | VS Code / Jupyter Notebook | Code development and execution |
 
 ## 🧹 Data Preprocessing
 
 The following preprocessing techniques are performed:
 
-- Removed unnecessary columns.
+- Standardized column names.
+- Removed unnecessary identifier columns.
 - Checked and removed duplicate records.
 - Identified and handled missing values.
 - Cleaned inconsistent categorical values.
-- Converted columns into appropriate data types.
-- Handled invalid numerical values.
-- Extracted useful information from reservation dates.
+- Converted numerical columns into appropriate data types.
+- Converted reservation dates into datetime format.
+- Handled missing numerical values using median.
+- Handled missing categorical values using mode.
+- Removed invalid booking status categories.
 
 ## 🔍 Exploratory Data Analysis (EDA)
 
-Exploratory Data Analysis is performed to understand the dataset and discover meaningful patterns.
+Exploratory Data Analysis is performed to understand the dataset and identify meaningful booking patterns.
 
 The analysis includes:
 
 - Booking status distribution.
 - Lead time analysis.
-- Average price distribution.
-- Market segment analysis.
-- Correlation and covariance analysis.
-- Skewness and kurtosis analysis.
-- Outlier detection using the IQR method.
+- Market segment cancellation analysis.
+- Average price analysis.
+- Special requests analysis.
+- Correlation analysis using a heatmap.
 
 ## 📊 Data Visualization
 
 Different visualization techniques are used to represent the findings clearly:
 
-- Count Plots
-- Histograms
-- Box Plots
-- Bar Charts
-- Heatmaps
-- Correlation Matrix
+- Booking Status Count Plot
+- Lead Time Box Plot
+- Cancellation Rate by Market Segment
+- Average Price by Booking Status
+- Cancellation Rate by Special Requests
+- Correlation Heatmap
+- Machine Learning Model Accuracy Comparison
+- Model F1 Score Comparison
 
 ## ⚙️ Feature Engineering
 
 New features are created to improve the Machine Learning process:
 
-- **Total Nights:** Combination of weekend and weekday nights.
-- **Total Guests:** Combination of adults and children.
 - **Reservation Year:** Extracted from the reservation date.
 - **Reservation Month:** Extracted from the reservation date.
-- **Booking Status Encoding:**
-  - Canceled = 1
-  - Not Canceled = 0
+- **Reservation Day:** Extracted from the reservation date.
+- **Total Nights:** Combination of weekend and weekday nights.
+- **Total Guests:** Combination of adults and children.
 
-Categorical features are transformed using One-Hot Encoding.
+The original reservation date is removed after extracting useful date-related features.
+
+Categorical input features are converted into numerical representations using One-Hot Encoding.
+
+The target variable is encoded as:
+
+- Canceled = 1
+- Not Canceled = 0
 
 ## 🤖 Machine Learning Models
 
-Four classification algorithms are implemented and compared:
+Five classification algorithms are implemented and compared:
 
 1. Logistic Regression
 2. K-Nearest Neighbors (KNN)
 3. Support Vector Machine (SVM)
-4. Random Forest Classifier
+4. Decision Tree Classifier
+5. Random Forest Classifier
 
-The dataset is divided into training and testing sets using an 80:20 ratio. Feature scaling is applied to the models where required.
+The dataset is sampled using up to 10,000 records to reduce model training time.
+
+The dataset is divided into training and testing sets using an 80:20 ratio. Stratified splitting is applied to maintain the class distribution.
+
+Feature scaling is performed using StandardScaler for Machine Learning model training.
 
 ## 📈 Model Evaluation
 
-The performance of each model is evaluated using:
+The performance of each Machine Learning model is evaluated using:
 
 - Accuracy Score
 - Precision Score
@@ -123,7 +134,7 @@ The performance of each model is evaluated using:
 - Confusion Matrix
 - Classification Report
 
-The models are compared to identify the best-performing algorithm based on the F1 score.
+The performance of all five algorithms is compared, and the best-fit model is selected based on the highest F1 Score.
 
 ## 📁 Project Structure
 
@@ -132,11 +143,7 @@ Hotel-Booking-Cancellation-Prediction/
 │
 ├── hotel_booking_cancellation.csv
 │
-├── Hotel_Booking_Project_Reference_Style.ipynb
-│
-├── Hotel_Booking_Project_Reference_Style.py
-│
-├── hotel_booking_model_comparison.csv
+├── prog_file.py
 │
 └── README.md
 ```
@@ -148,36 +155,43 @@ Hotel-Booking-Cancellation-Prediction/
 **Step 2:** Install the required Python libraries.
 
 ```bash
-pip install pandas numpy matplotlib seaborn scikit-learn
+pip install pandas matplotlib seaborn scikit-learn
 ```
 
-**Step 3:** Keep the dataset `hotel_booking_cancellation.csv` in the project folder.
+**Step 3:** Keep the dataset `hotel_booking_cancellation.csv` in the same folder as the Python script.
 
-**Step 4:** Run the Python script or open the notebook in your preferred Python environment.
+**Step 4:** Run the Python program.
 
-**Step 5:** Execute the code and analyse the generated visualizations and Machine Learning results.
+```bash
+python prog_file.py
+```
+
+**Step 5:** Execute the program and analyse the generated visualizations, model performance metrics, and key findings.
 
 ## 💡 Key Outcomes
 
 - Understand hotel booking and cancellation patterns.
 - Identify factors associated with booking cancellations.
+- Analyse cancellation rates across different market segments.
 - Discover useful insights through data analysis and visualization.
-- Compare four Machine Learning classification algorithms.
-- Determine the best-performing model using evaluation metrics.
+- Compare five Machine Learning classification algorithms.
+- Identify the best-performing model based on F1 Score.
 
 ## 📝 Conclusion
 
-This project demonstrates the application of Data Science and Machine Learning techniques to hotel booking data. By performing data preprocessing, Exploratory Data Analysis, feature engineering, visualization, and classification, the project aims to understand booking cancellation behaviour and predict the cancellation status of hotel reservations.
+This project demonstrates the application of Data Science and Machine Learning techniques to hotel booking data. By performing data preprocessing, Exploratory Data Analysis, feature engineering, visualization, and classification, the project aims to understand hotel booking cancellation behaviour and predict the cancellation status of reservations.
 
-The findings can help hotels better understand customer booking patterns and make informed decisions to manage cancellations.
+Five Machine Learning algorithms are evaluated using different performance metrics, and the model with the highest F1 Score is selected as the best-fit model.
+
+The findings can help hotel management understand customer booking behaviour, identify cancellation patterns, and make informed decisions to manage booking cancellations.
 
 ## 🔮 Future Scope
 
 - Implement advanced Machine Learning algorithms.
 - Improve model performance through hyperparameter tuning.
 - Develop an interactive dashboard using Power BI.
-- Deploy the prediction model as a web application.
-- Integrate real-time booking information for cancellation prediction.
+- Deploy the selected prediction model as a web application.
+- Integrate additional booking datasets to improve prediction performance.
 
 ## 👨‍💻 Author
 
