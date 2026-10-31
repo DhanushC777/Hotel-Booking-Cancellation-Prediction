@@ -1,7 +1,5 @@
 
-# ============================================================
 # IMPORT LIBRARIES
-# ============================================================
 
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -19,10 +17,7 @@ from sklearn.metrics import (
     confusion_matrix, classification_report
 )
 
-
-# ============================================================
 # 1. LOAD DATASET
-# ============================================================
 
 df = pd.read_csv("hotel_booking_cancellation.csv")
 
@@ -34,10 +29,7 @@ print(df.head())
 print("\nDescriptive statistics:")
 print(df.describe(include="all"))
 
-
-# ============================================================
 # 2. DATA PREPROCESSING AND CLEANING
-# ============================================================
 
 # Standardize column names.
 df.columns = (
@@ -120,9 +112,7 @@ print("\nBooking status categories:")
 print(df["booking_status"].unique())
 
 
-# ============================================================
 # 3. FEATURE ENGINEERING
-# ============================================================
 
 # Extract useful date information.
 df["reservation_year"] = df["date_of_reservation"].dt.year
@@ -147,10 +137,7 @@ print("\nFeature engineering completed.")
 print("Created: reservation_year, reservation_month, reservation_day,")
 print("total_nights and total_guests.")
 
-
-# ============================================================
 # 4. EXPLORATORY DATA ANALYSIS
-# ============================================================
 
 sns.set_style("whitegrid")
 
@@ -164,10 +151,7 @@ plt.title("Correlation Heatmap")
 plt.tight_layout()
 plt.show()
 
-
-# ============================================================
 # 5. FIVE OBJECTIVES OF THE PROJECT
-# ============================================================
 
 # OBJECTIVE 1: BOOKING STATUS ANALYSIS
 print("\nOBJECTIVE 1: BOOKING STATUS ANALYSIS")
@@ -203,10 +187,7 @@ request_rate = (
 print("Cancellation rate by number of special requests:")
 print(request_rate.round(2))
 
-
-# ============================================================
 # 6. DATA VISUALIZATION
-# ============================================================
 
 # GRAPH 1: BOOKING STATUS
 plt.figure(figsize=(7, 5))
@@ -254,10 +235,7 @@ plt.ylabel("Cancellation Rate (%)")
 plt.tight_layout()
 plt.show()
 
-
-# ============================================================
 # 7. PREPARE DATA FOR MACHINE LEARNING
-# ============================================================
 
 # Use a sample to reduce model training time.
 data = df.sample(n=min(10000, len(df)), random_state=42)
@@ -286,10 +264,7 @@ scaler = StandardScaler()
 X_train = scaler.fit_transform(X_train)
 X_test = scaler.transform(X_test)
 
-
-# ============================================================
 # 8. MODEL 1: LOGISTIC REGRESSION
-# ============================================================
 
 model1 = LogisticRegression(max_iter=1000, class_weight="balanced")
 model1.fit(X_train, Y_train)
@@ -303,10 +278,7 @@ print("F1 Score:", f1_score(Y_test, y_pred1, zero_division=0))
 print("Confusion Matrix:\n", confusion_matrix(Y_test, y_pred1))
 print(classification_report(Y_test, y_pred1, zero_division=0))
 
-
-# ============================================================
 # 9. MODEL 2: K-NEAREST NEIGHBORS
-# ============================================================
 
 model2 = KNeighborsClassifier(n_neighbors=5)
 model2.fit(X_train, Y_train)
@@ -321,9 +293,7 @@ print("Confusion Matrix:\n", confusion_matrix(Y_test, y_pred2))
 print(classification_report(Y_test, y_pred2, zero_division=0))
 
 
-# ============================================================
 # 10. MODEL 3: SUPPORT VECTOR MACHINE
-# ============================================================
 
 model3 = SVC(kernel="linear", cache_size=1000, class_weight="balanced")
 model3.fit(X_train, Y_train)
@@ -338,9 +308,7 @@ print("Confusion Matrix:\n", confusion_matrix(Y_test, y_pred3))
 print(classification_report(Y_test, y_pred3, zero_division=0))
 
 
-# ============================================================
 # 11. MODEL 4: DECISION TREE
-# ============================================================
 
 model4 = DecisionTreeClassifier(
     max_depth=15, random_state=42, class_weight="balanced"
@@ -356,10 +324,7 @@ print("F1 Score:", f1_score(Y_test, y_pred4, zero_division=0))
 print("Confusion Matrix:\n", confusion_matrix(Y_test, y_pred4))
 print(classification_report(Y_test, y_pred4, zero_division=0))
 
-
-# ============================================================
 # 12. MODEL 5: RANDOM FOREST
-# ============================================================
 
 model5 = RandomForestClassifier(
     n_estimators=100, max_depth=20,
@@ -377,9 +342,7 @@ print("Confusion Matrix:\n", confusion_matrix(Y_test, y_pred5))
 print(classification_report(Y_test, y_pred5, zero_division=0))
 
 
-# ============================================================
 # 13. MODEL COMPARISON AND BEST-FIT MODEL
-# ============================================================
 
 models = [
     "Logistic Regression", "KNN", "SVM",
@@ -439,10 +402,7 @@ print("\nBEST-FIT MODEL:", best)
 print("BEST F1 SCORE:", round(f1_scores[best_index], 4))
 print("BEST MODEL ACCURACY:", round(accuracies[best_index], 4))
 
-
-# ============================================================
 # 14. KEY FINDINGS
-# ============================================================
 
 total_bookings = len(df)
 canceled_bookings = (df["booking_status"] == "Canceled").sum()
@@ -459,10 +419,7 @@ print(
 print("5. Market segment with highest cancellation rate:", segment_rate.idxmax())
 print("6. Best-fit machine learning model:", best)
 
-
-# ============================================================
 # 15. FINAL CONCLUSION AND RECOMMENDATIONS
-# ============================================================
 
 print("\nFINAL CONCLUSION")
 print(
